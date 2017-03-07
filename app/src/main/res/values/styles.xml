@@ -1,0 +1,37 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="textView_operator">
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="textView_values">
+        <item name="android:gravity">center</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="diary_page_card">
+        <item name="android:background">@color/diaryPageCardColor</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <style name="diary_page_card_title_strip">
+        <item name="android:background">@drawable/navigation_bar_strip</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+
+    </style>
+
+    <style name="diary_page_card_add_food">
+        <item name="android:background">@color/diaryPageCardAddFoodBarColor</item>
+        <item name="android:padding">10dp</item>
+    </style>
+</resources>
