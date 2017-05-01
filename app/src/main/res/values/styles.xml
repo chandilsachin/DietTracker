@@ -34,4 +34,17 @@
         <item name="android:background">@color/diaryPageCardAddFoodBarColor</item>
         <item name="android:padding">10dp</item>
     </style>
+
+    <style name="food_list_item_name">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+
+    <style name="food_list_item_desc">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:textColor">#CDCDCD</item>
+    </style>
 </resources>

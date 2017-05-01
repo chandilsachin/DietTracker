@@ -118,86 +118,9 @@
             </android.support.v7.widget.CardView>
 
 
-            <android.support.v7.widget.CardView
-                style="@style/diary_page_card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-
-                    <RelativeLayout
-                        style="@style/diary_page_card_title_strip"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/textViewBreakfastTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_centerVertical="true"
-                            android:text="Breakfast" />
-
-                        <TableLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginLeft="40dp"
-                            android:layout_toRightOf="@id/textViewBreakfastTitle"
-                            android:stretchColumns="*">
-
-                            <TableRow>
-
-                                <TextView
-                                    style="@style/textView_values"
-                                    android:text="Calorie" />
-
-                                <TextView
-                                    style="@style/textView_values"
-                                    android:text="Protein" />
-
-                                <TextView
-                                    style="@style/textView_values"
-                                    android:text="Carbs" />
-                            </TableRow>
-
-                            <TableRow>
-
-                                <TextView
-                                    style="@style/textView_values"
-                                    android:text="0" />
-
-                                <TextView
-                                    style="@style/textView_values"
-                                    android:text="0" />
-
-                                <TextView
-                                    style="@style/textView_values"
-                                    android:text="0" />
-                            </TableRow>
-                        </TableLayout>
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        style="@style/diary_page_card_add_food">
-
-                        <TextView
-                            android:id="@+id/textViewAddFood"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_centerVertical="true"
-                            android:text="+ Add Food" />
-
-                    </RelativeLayout>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
+            <include
+                android:id="@+id/linearLayoutBreakfast"
+                layout="@layout/layout_meal_listing"/>
         </LinearLayout>
 
 
