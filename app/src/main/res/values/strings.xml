@@ -5,4 +5,12 @@
     <string name="took">Took</string>
     <string name="remainin">Remaining</string>
     <string name="searchFood">Search food</string>
+    <string name="noOfServings">Number of Servings</string>
+
+
+
+    <string name="Carbs_g">Carbs(g)</string>
+    <string name="fat_g">Fat(g)</string>
+    <string name="protein_g">Protein(g)</string>
+    <string name="calories">Calories</string>
 </resources>

@@ -20,7 +20,16 @@ public class DatabaseManager extends SQLiteOpenHelper {
     private static final int VERSION_NO = 1;
     private static final String DATABASE_NAME = "diet";
 
-    public DatabaseManager(Context context) {
+    private static DatabaseManager instance;
+
+    public static DatabaseManager getInstance(Context context){
+        if(instance == null){
+            return new DatabaseManager(context);
+        }
+        return instance;
+    }
+
+    private DatabaseManager(Context context) {
         super(context, DATABASE_NAME, null, VERSION_NO);
     }
 

@@ -64,9 +64,9 @@ public class AddFoodActivity extends AppCompatActivity implements AddFoodView {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_add_food, menu);
-        return true;
+        //MenuInflater inflater = getMenuInflater();
+        //inflater.inflate(R.menu.menu_add_food, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

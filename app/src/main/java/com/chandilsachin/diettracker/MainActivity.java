@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        dbManager = new DatabaseManager(this);
+        dbManager = DatabaseManager.getInstance(this);
         initViews();
         setEvents();
         setUpDatabase();
@@ -93,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             try {
                 ArrayList<Food> list = new AddFoodPresenter().readFoodItemsFile(MainActivity.this);
-                DatabaseManager dbManager = new DatabaseManager(MainActivity.this);
                 dbManager.addFoodList(list);
             } catch (IOException e) {
                 e.printStackTrace();
