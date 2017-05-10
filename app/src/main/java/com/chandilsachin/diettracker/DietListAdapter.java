@@ -13,13 +13,13 @@ import java.util.ArrayList;
  * Created by Sachin Chandil on 29/04/2017.
  */
 
-public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.ViewHolder> {
+public class DietListAdapter extends RecyclerView.Adapter<DietListAdapter.ViewHolder> {
 
     private LayoutInflater inflater;
     private ArrayList<Food> foodList;
     private Callback<Void, Integer> onItemClick;
 
-    public FoodListAdapter(Context context, ArrayList<Food> list) {
+    public DietListAdapter(Context context, ArrayList<Food> list) {
         inflater = LayoutInflater.from(context);
         this.foodList = list;
     }
@@ -38,7 +38,8 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.ViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onItemClick.callback(foodList.get(position).foodId);
+                if(onItemClick != null)
+                    onItemClick.callback(foodList.get(position).foodId);
             }
         });
     }

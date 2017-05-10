@@ -119,7 +119,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
     }
 
     private String toYYYYMMDD(Date date) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/DD");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
         return format.format(date);
     }
 
