@@ -14,113 +14,16 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cardSummaryBox"
-                style="@style/diary_page_card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TableLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:stretchColumns="*">
-
-                    <TableRow>
-
-                        <TextView android:id="@+id/textViewGoalCalories" />
-
-                        <TextView
-                            style="@style/textView_operator"
-                            android:text="-" />
-
-                        <TextView android:id="@+id/textViewTookCalories" />
-
-                        <TextView
-                            style="@style/textView_operator"
-                            android:text="=" />
-
-                        <TextView android:id="@+id/textViewRemainingCalories" />
-                    </TableRow>
-
-                    <TableRow>
-
-                        <TextView
-                            android:id="@+id/textViewGoalProtein"
-                            style="@style/textView_values" />
-
-                        <TextView
-                            style="@style/textView_operator"
-                            android:text="-" />
-
-                        <TextView
-                            android:id="@+id/textViewTookProtein"
-                            style="@style/textView_values" />
-
-                        <TextView
-                            style="@style/textView_operator"
-                            android:text="=" />
-
-                        <TextView
-                            android:id="@+id/textViewRemainingProtein"
-                            style="@style/textView_values" />
-                    </TableRow>
-
-                    <TableRow>
-
-                        <TextView
-                            android:id="@+id/textViewGoalCarbs"
-                            style="@style/textView_values" />
-
-                        <TextView
-                            style="@style/textView_operator"
-                            android:text="-" />
-
-                        <TextView
-                            android:id="@+id/textViewTookCarbs"
-                            style="@style/textView_values" />
-
-                        <TextView
-                            style="@style/textView_operator"
-                            android:text="=" />
-
-                        <TextView
-                            android:id="@+id/textViewRemainingCarbs"
-                            style="@style/textView_values" />
-                    </TableRow>
-
-                    <TableRow>
-
-                        <TextView
-                            android:id="@+id/textViewGoal"
-                            style="@style/textView_values"
-                            android:text="@string/goal" />
-
-                        <TextView
-                            style="@style/textView_operator"
-                            android:text="" />
-
-                        <TextView
-                            android:id="@+id/textViewTook"
-                            style="@style/textView_values"
-                            android:text="@string/took" />
-
-                        <TextView
-                            style="@style/textView_operator"
-                            android:text="" />
-
-                        <TextView
-                            android:id="@+id/textViewRemaining"
-                            style="@style/textView_values"
-                            android:text="@string/remainin" />
-                    </TableRow>
-                </TableLayout>
-
-            </android.support.v7.widget.CardView>
-
-
             <include
                 android:id="@+id/linearLayoutBreakfast"
                 layout="@layout/layout_meal_listing"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerViewDietList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical" />
+
         </LinearLayout>
 
 

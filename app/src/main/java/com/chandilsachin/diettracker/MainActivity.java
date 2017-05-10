@@ -5,30 +5,35 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.chandilsachin.diettracker.mvp.view.ProgressDialog;
-import com.ne1c.rainbowmvp.PresenterFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
     private DatabaseManager dbManager;
+    private MainPresenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        dbManager = DatabaseManager.getInstance(this);
+        dbManager = new DatabaseManager(this);
+        presenter = new MainPresenter();
         initViews();
         setEvents();
         setUpDatabase();
+        prepareDietList();
     }
 
     private void setUpDatabase(){
@@ -37,12 +42,36 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void prepareDietList(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final ArrayList<Food> list = presenter.getDietList(MainActivity.this);
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        bindDataToList(list);
+                    }
+                });
+            }
+        }).start();
+
+    }
+
+
+    private void bindDataToList(ArrayList<Food> list){
+        DietListAdapter adapter = new DietListAdapter(this, list);
+        recyclerViewDietList.setAdapter(adapter);
+    }
 
     private RelativeLayout relativeLayoutAddBreakfast;
     private CardView linearLayoutBreakfast;
+    private RecyclerView recyclerViewDietList;
     public void initViews(){
         linearLayoutBreakfast = (CardView) findViewById(R.id.linearLayoutBreakfast);
         relativeLayoutAddBreakfast = (RelativeLayout) linearLayoutBreakfast.findViewById(R.id.relativeLayoutAddFood);
+        recyclerViewDietList = (RecyclerView) findViewById(R.id.recyclerViewDietList);
+        recyclerViewDietList.setLayoutManager(new LinearLayoutManager(this));
     }
 
     public void setEvents(){
@@ -61,8 +90,9 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode){
             case AddFoodActivity.CODE_FOOD_SELECTION:
                 int selectedFood = data.getIntExtra(AddFoodActivity.SELECTED_INDEX, -1);
-                dbManager.saveFood(selectedFood, 1f, new Date());
+                dbManager.saveFood(selectedFood, 1f, Calendar.getInstance().getTime());
                 Toast.makeText(this, "Selected Item: "+ selectedFood, Toast.LENGTH_SHORT).show();
+                prepareDietList();
                 break;
         }
     }
@@ -93,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             try {
                 ArrayList<Food> list = new AddFoodPresenter().readFoodItemsFile(MainActivity.this);
+                DatabaseManager dbManager = new DatabaseManager(MainActivity.this);
                 dbManager.addFoodList(list);
             } catch (IOException e) {
                 e.printStackTrace();
