@@ -14,6 +14,6 @@ public class MainPresenter {
 
     public ArrayList<Food> getDietList(Context context){
         Date today = new Date(Calendar.getInstance().getTimeInMillis());
-        return new DatabaseManager(context).getFoodOnDate(today);
+        return DatabaseManager.getInstance(context).getFoodOnDate(today);
     }
 }
