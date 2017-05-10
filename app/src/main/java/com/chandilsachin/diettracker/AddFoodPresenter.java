@@ -48,7 +48,7 @@ public class AddFoodPresenter extends BasePresenter<AddFoodView> implements View
 
     public ArrayList<Food> readFoodItems(Context context) throws IOException {
 
-        ArrayList<Food> list = new DatabaseManager(context).getAllFoodList();
+        ArrayList<Food> list = DatabaseManager.getInstance(context).getAllFoodList();
         addFoodView.populateListItems(list);
         return list;
     }
