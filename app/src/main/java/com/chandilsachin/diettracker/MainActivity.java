@@ -1,4 +1,4 @@
-package com.chandilsachin.diettracker;
+ackage com.chandilsachin.diettracker;
 
 import android.content.Intent;
 import android.os.AsyncTask;

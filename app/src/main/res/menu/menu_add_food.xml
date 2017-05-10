@@ -2,7 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/addFood"
-        android:title="Add food"
-        android:icon="@mipmap/ic_launcher"
+        android:title="Add"
         app:showAsAction="always"></item>
 </menu>
