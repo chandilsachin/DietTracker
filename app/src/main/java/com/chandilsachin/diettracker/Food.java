@@ -11,6 +11,7 @@ public class Food {
     public float protein;
     public float carbs;
     public float fat;
+    public float calories;
 
     public Food(String foodName, String foodDesc, float protein, float carbs, float fat) {
         this.foodName = foodName;
@@ -18,5 +19,6 @@ public class Food {
         this.protein = protein;
         this.carbs = carbs;
         this.fat = fat;
+        //this.calories = calories;
     }
 }
