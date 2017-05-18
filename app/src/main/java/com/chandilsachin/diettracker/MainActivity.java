@@ -16,7 +16,6 @@ import com.chandilsachin.diettracker.mvp.view.ProgressDialog;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -89,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode){
             case AddFoodActivity.CODE_FOOD_SELECTION:
-                int selectedFood = data.getIntExtra(AddFoodActivity.SELECTED_INDEX, -1);
+                int selectedFood = data.getIntExtra(AddFoodActivity.SELECTED_FOOD_ID, -1);
                 dbManager.saveFood(selectedFood, 1f, Calendar.getInstance().getTime());
                 Toast.makeText(this, "Selected Item: "+ selectedFood, Toast.LENGTH_SHORT).show();
                 prepareDietList();

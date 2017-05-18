@@ -6,20 +6,15 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
-
-import com.ne1c.rainbowmvp.base.BaseActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import butterknife.BindView;
-
 public class AddFoodActivity extends AppCompatActivity implements AddFoodView {
 
-    public static final String SELECTED_INDEX= "selectedIndex";
+    public static final String SELECTED_FOOD_ID = "selectedIndex";
     public static final int CODE_FOOD_SELECTION = 1;
 
     /*@BindView(R.id.recyclerViewFoodList)*/
@@ -79,11 +74,11 @@ public class AddFoodActivity extends AppCompatActivity implements AddFoodView {
         FoodListAdapter adapter = new FoodListAdapter(this, list);
         adapter.setOnItemClick(new FoodListAdapter.Callback<Void, Integer>() {
             @Override
-            public Void callback(Integer param) {
-                Intent intent = new Intent();
-                intent.putExtra(SELECTED_INDEX, param);
-                setResult(CODE_FOOD_SELECTION, intent);
-                finish();
+            public Void callback(Integer foodId) {
+                Intent intent = new Intent(AddFoodActivity.this, FoodDetailsActivity.class);
+                intent.putExtra(SELECTED_FOOD_ID, foodId);
+                //setResult(CODE_FOOD_SELECTION, intent);
+                startActivity(intent);
                 return null;
             }
         });
