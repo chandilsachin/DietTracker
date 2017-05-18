@@ -8,12 +8,12 @@ public class Food {
     public int foodId;
     public String foodName;
     public String foodDesc;
-    public float protein;
-    public float carbs;
-    public float fat;
-    public float calories;
+    public double protein;
+    public double carbs;
+    public double fat;
+    public double calories;
 
-    public Food(String foodName, String foodDesc, float protein, float carbs, float fat) {
+    public Food(String foodName, String foodDesc, double protein, double carbs, double fat) {
         this.foodName = foodName;
         this.foodDesc = foodDesc;
         this.protein = protein;

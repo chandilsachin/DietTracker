@@ -55,6 +55,9 @@ public class DatabaseManager extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(NAME, food.foodName);
             values.put(DESC, food.foodDesc);
+            values.put(PROTEIN, food.protein);
+            values.put(CARBS, food.carbs);
+            values.put(FAT, food.fat);
             db.insert(ALL_FOOD_LIST, null, values);
         }
         db.close();

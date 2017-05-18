@@ -18,10 +18,12 @@
         </activity>
         <activity
             android:name=".AddFoodActivity"
+            android:label="@string/addFood"
             android:parentActivityName=".MainActivity"/>
 
         <activity android:name=".FoodDetailsActivity"
-                  android:parentActivityName=".AddFoodActivity">
+            android:label="@string/foodDetailsPage"
+                  android:parentActivityName=".MainActivity">
         </activity>
     </application>
 </manifest>

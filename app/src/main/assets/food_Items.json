@@ -3,14 +3,20 @@
     "food_name":"Food 1",
     "food_desc":"desc 1",
     "facts":{
-
+      "calories":100,
+      "carbs":30,
+      "fat":3,
+      "protein":7
     }
   },
   {
     "food_name":"Food 2",
     "food_desc":"dsc 2",
     "facts":{
-
+      "calories":20,
+      "carbs":10,
+      "fat":2,
+      "protein":10
     }
   }
 ]

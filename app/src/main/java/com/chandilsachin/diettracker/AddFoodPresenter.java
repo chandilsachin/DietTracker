@@ -37,7 +37,9 @@ public class AddFoodPresenter extends BasePresenter<AddFoodView> implements View
             jsonArray = JSONReader.readJsonFileToArrayFromAssets(context.getAssets(), "food_Items.json");
             for (int i = 0; i < jsonArray.length(); i++){
                 JSONObject object = jsonArray.getJSONObject(i);
-                Food food = new Food(object.getString("food_name"), object.getString("food_desc"),0f,0f,0f);
+                JSONObject fact = object.getJSONObject("facts");
+                Food food = new Food(object.getString("food_name"), object.getString("food_desc"),fact.getDouble("protein"),
+                        fact.getDouble("carbs"),fact.getDouble("fat"));
                 list.add(food);
             }
         } catch (JSONException e) {

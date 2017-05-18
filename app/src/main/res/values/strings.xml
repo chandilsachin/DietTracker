@@ -1,13 +1,14 @@
 <resources>
     <string name="app_name">Diet Tracker</string>
 
+    <string name="addFood">Add Food</string>
+    <string name="foodDetailsPage">Food Details</string>
+
     <string name="goal">Goal</string>
     <string name="took">Took</string>
     <string name="remainin">Remaining</string>
     <string name="searchFood">Search food</string>
     <string name="noOfServings">Number of Servings</string>
-
-
 
     <string name="Carbs_g">Carbs(g)</string>
     <string name="fat_g">Fat(g)</string>
