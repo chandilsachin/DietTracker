@@ -45,6 +45,7 @@ dependencies {
     compile 'com.github.ne1c:rainbowmvp:1.2.1'
     compile 'com.jakewharton:butterknife:8.5.1'
     testCompile 'junit:junit:4.12'
+    compile "org.jetbrains.anko:anko:0.10.0"
 }
 repositories {
     mavenCentral()

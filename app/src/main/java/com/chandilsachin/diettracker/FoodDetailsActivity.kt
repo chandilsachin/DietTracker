@@ -1,11 +1,15 @@
 package com.chandilsachin.diettracker
 
+import android.content.ContentResolver
 import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_food_details.*
+import org.jetbrains.anko.custom.async
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import java.util.*
 
 class FoodDetailsActivity : AppCompatActivity() {
@@ -32,21 +36,28 @@ class FoodDetailsActivity : AppCompatActivity() {
     }
 
     private fun fetchFoodDetails():Unit{
-        val food = DatabaseManager.getInstance(baseContext).getFoodDetails(selectedFoodId);
-        textViewFoodName.text = food.foodName
-        textViewFoodDesc.text = food.foodDesc
-        textViewCarbs.text = food.carbs.toString()
-        textViewFat.text = food.fat.toString()
-        textViewProtein.text = food.protein.toString()
-        textViewCalories.text = food.calories.toString()
-
+        doAsync{
+            val food = DatabaseManager.getInstance(baseContext).getFoodDetails(selectedFoodId);
+            uiThread{
+                textViewFoodName.text = food.foodName
+                textViewFoodDesc.text = food.foodDesc
+                textViewCarbs.text = food.carbs.toString()
+                textViewFat.text = food.fat.toString()
+                textViewProtein.text = food.protein.toString()
+                textViewCalories.text = food.calories.toString()
+            }
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId){
             R.id.addFood -> {
-                DatabaseManager.getInstance(baseContext).saveFood(selectedFoodId, Integer.parseInt(editTextNoOfServings.text.toString()).toFloat(),Calendar.getInstance().time)
-                finish()
+                doAsync {
+                    DatabaseManager.getInstance(baseContext).saveFood(selectedFoodId, Integer.parseInt(editTextNoOfServings.text.toString()).toFloat(),Calendar.getInstance().time)
+                    uiThread {
+                        finish()
+                    }
+                }
             }
         }
         return super.onOptionsItemSelected(item)
