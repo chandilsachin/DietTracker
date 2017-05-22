@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.chandilsachin.diettracker.database.Food;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -53,11 +55,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
         while (iterator.hasNext()) {
             Food food = iterator.next();
             ContentValues values = new ContentValues();
-            values.put(NAME, food.foodName);
-            values.put(DESC, food.foodDesc);
-            values.put(PROTEIN, food.protein);
-            values.put(CARBS, food.carbs);
-            values.put(FAT, food.fat);
+            values.put(NAME, food.getFoodName());
+            values.put(DESC, food.getFoodDesc());
+            values.put(PROTEIN, food.getProtein());
+            values.put(CARBS, food.getCarbs());
+            values.put(FAT, food.getFat());
             db.insert(ALL_FOOD_LIST, null, values);
         }
         db.close();
@@ -80,7 +82,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Food food = new Food(cursor.getString(1), cursor.getString(2), cursor.getFloat(3), cursor.getFloat(4), cursor.getFloat(5));
-                food.foodId = cursor.getInt(0);
+                food.setFoodId(cursor.getInt(0));
                 list.add(food);
             } while (cursor.moveToNext());
         }

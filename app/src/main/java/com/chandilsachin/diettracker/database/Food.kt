@@ -9,7 +9,7 @@ import android.arch.persistence.room.PrimaryKey
 @Entity
 class Food(var foodName: String, var foodDesc: String, var protein: Double, var carbs: Double, var fat: Double)
 {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     var foodId: Int = 0
     var calories: Double = 0.toDouble()
 }

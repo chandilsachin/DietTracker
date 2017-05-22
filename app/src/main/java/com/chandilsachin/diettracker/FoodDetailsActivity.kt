@@ -11,7 +11,6 @@ import java.util.*
 
 class FoodDetailsActivity : AppCompatActivity() {
 
-
     private var selectedFoodId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +49,7 @@ class FoodDetailsActivity : AppCompatActivity() {
         when(item?.itemId){
             R.id.addFood -> {
                 doAsync {
-                    DatabaseManager.getInstance(baseContext).saveFood(selectedFoodId, Integer.parseInt(editTextNoOfServings.text.toString()).toFloat(),Calendar.getInstance().time)
+                    DatabaseManager.getInstance(baseContext).saveFood(selectedFoodId, editTextNoOfServings.text.toString().toFloat(),Calendar.getInstance().time)
                     uiThread {
                         finish()
                     }

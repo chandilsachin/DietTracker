@@ -1,5 +1,6 @@
 package com.chandilsachin.diettracker.database
 
+import android.arch.persistence.room.Insert
 import android.arch.persistence.room.Query
 
 /**
@@ -21,5 +22,6 @@ interface FoodDao {
     @Query("SELECT * FROM $ALL_FOOD_LIST WHERE $ID=(:id)")
     fun getFoodDetails(id:Int)
 
+    @Insert
     fun addFoodList(list:ArrayList<Food>)
 }
