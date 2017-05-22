@@ -1,5 +1,6 @@
 package com.chandilsachin.diettracker;
 
+import android.arch.persistence.room.Room;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -63,6 +64,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
             db.insert(ALL_FOOD_LIST, null, values);
         }
         db.close();
+
     }
 
     public Food getFoodDetails(int id) {

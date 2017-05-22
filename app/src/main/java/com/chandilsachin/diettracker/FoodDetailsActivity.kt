@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import com.chandilsachin.diettracker.database.Database
 import kotlinx.android.synthetic.main.activity_food_details.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
@@ -49,6 +50,7 @@ class FoodDetailsActivity : AppCompatActivity() {
         when(item?.itemId){
             R.id.addFood -> {
                 doAsync {
+                    //Database.getInstance(baseContext).
                     DatabaseManager.getInstance(baseContext).saveFood(selectedFoodId, editTextNoOfServings.text.toString().toFloat(),Calendar.getInstance().time)
                     uiThread {
                         finish()
