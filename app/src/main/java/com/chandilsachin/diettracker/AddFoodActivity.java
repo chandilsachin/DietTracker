@@ -1,5 +1,6 @@
 package com.chandilsachin.diettracker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -57,17 +58,19 @@ public class AddFoodActivity extends AppCompatActivity implements AddFoodView {
         }
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //MenuInflater inflater = getMenuInflater();
         //inflater.inflate(R.menu.menu_add_food, menu);
         return super.onCreateOptionsMenu(menu);
-    }
+    }*/
 
-    @Override
+
+
+    /*@Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     @Override
     public void populateListItems(ArrayList<Food> list) {

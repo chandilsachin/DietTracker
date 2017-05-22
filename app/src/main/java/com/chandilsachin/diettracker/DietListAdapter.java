@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.chandilsachin.diettracker.database.Food;
+
 import java.util.ArrayList;
 
 /**
@@ -32,14 +34,14 @@ public class DietListAdapter extends RecyclerView.Adapter<DietListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.textViewFoodName.setText(foodList.get(position).foodName);
-        holder.textViewFoodDesc.setText(foodList.get(position).foodDesc);
+        holder.textViewFoodName.setText(foodList.get(position).getFoodName());
+        holder.textViewFoodDesc.setText(foodList.get(position).getFoodDesc());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(onItemClick != null)
-                    onItemClick.callback(foodList.get(position).foodId);
+                    onItemClick.callback(foodList.get(position).getFoodId());
             }
         });
     }
