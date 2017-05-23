@@ -18,7 +18,7 @@ import java.util.ArrayList
 class DietListAdapter(context: Context, private val foodList: ArrayList<Food>) : RecyclerView.Adapter<DietListAdapter.ViewHolder>() {
 
     private val inflater: LayoutInflater
-    private var onItemClick: Callback<Void, Int>? = null
+    private var onItemClick: Callback<Void, Long>? = null
 
     init {
         inflater = LayoutInflater.from(context)
@@ -35,7 +35,7 @@ class DietListAdapter(context: Context, private val foodList: ArrayList<Food>) :
 
         holder.itemView.setOnClickListener {
             if (onItemClick != null)
-                onItemClick!!.callback(foodList[position].foodId)
+                onItemClick!!.callback(foodList[position].id)
         }
     }
 
@@ -43,7 +43,7 @@ class DietListAdapter(context: Context, private val foodList: ArrayList<Food>) :
         return foodList.size
     }
 
-    fun setOnItemClick(onItemClick: Callback<Void, Int>) {
+    fun setOnItemClick(onItemClick: Callback<Void, Long>) {
         this.onItemClick = onItemClick
     }
 

@@ -19,7 +19,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.ViewHo
 
     private LayoutInflater inflater;
     private ArrayList<Food> foodList;
-    private Callback<Void, Integer> onItemClick;
+    private Callback<Void, Long> onItemClick;
 
     public FoodListAdapter(Context context, ArrayList<Food> list) {
         inflater = LayoutInflater.from(context);
@@ -40,7 +40,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.ViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onItemClick.callback(foodList.get(position).getFoodId());
+                onItemClick.callback(foodList.get(position).getId());
             }
         });
     }
@@ -50,7 +50,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.ViewHo
         return foodList.size();
     }
 
-    public void setOnItemClick(Callback<Void, Integer> onItemClick) {
+    public void setOnItemClick(Callback<Void, Long> onItemClick) {
         this.onItemClick = onItemClick;
     }
 

@@ -4,7 +4,8 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.chandilsachin.diettracker.database.Database
+import com.chandilsachin.diettracker.database.FoodDatabase
+import com.chandilsachin.diettracker.database.PersonalizedFood
 import kotlinx.android.synthetic.main.activity_food_details.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
@@ -12,7 +13,7 @@ import java.util.*
 
 class FoodDetailsActivity : AppCompatActivity() {
 
-    private var selectedFoodId: Int = -1
+    private var selectedFoodId: Long = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,8 +23,8 @@ class FoodDetailsActivity : AppCompatActivity() {
         fetchFoodDetails()
     }
 
-    private fun getFoodIdFromIntent():Int{
-        return intent.getIntExtra(AddFoodActivity.SELECTED_FOOD_ID, -1)
+    private fun getFoodIdFromIntent():Long{
+        return intent.getLongExtra(AddFoodActivity.SELECTED_FOOD_ID, -1)
     }
 
 
@@ -34,7 +35,7 @@ class FoodDetailsActivity : AppCompatActivity() {
 
     private fun fetchFoodDetails():Unit{
         doAsync{
-            val food = Database.getInstance(baseContext)?.foodDao()?.getFoodDetails(selectedFoodId);
+            val food = FoodDatabase.getInstance(baseContext)?.getFoodDetails(selectedFoodId);
             if(food != null)
                 uiThread{
                     textViewFoodName.text = food.foodName
@@ -52,7 +53,10 @@ class FoodDetailsActivity : AppCompatActivity() {
             R.id.addFood -> {
                 doAsync {
                     //Database.getInstance(baseContext).
-                    DatabaseManager.getInstance(baseContext).saveFood(selectedFoodId, editTextNoOfServings.text.toString().toFloat(),Calendar.getInstance().time)
+                    var food: PersonalizedFood = PersonalizedFood(editTextNoOfServings.text.toString().toInt(),"unit",Calendar.getInstance().time)
+                    food.foodId = selectedFoodId
+                    FoodDatabase.getInstance(baseContext)?.saveFood(food)
+                    //DatabaseManager.getInstance(baseContext).saveFood(selectedFoodId, editTextNoOfServings.text.toString().toFloat(),Calendar.getInstance().time)
                     uiThread {
                         finish()
                     }

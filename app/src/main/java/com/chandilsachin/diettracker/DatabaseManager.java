@@ -84,7 +84,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Food food = new Food(cursor.getString(1), cursor.getString(2), cursor.getFloat(3), cursor.getFloat(4), cursor.getFloat(5));
-                food.setFoodId(cursor.getInt(0));
+                food.setId(cursor.getInt(0));
                 list.add(food);
             } while (cursor.moveToNext());
         }

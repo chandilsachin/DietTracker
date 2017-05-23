@@ -77,9 +77,9 @@ public class AddFoodActivity extends AppCompatActivity implements AddFoodView {
     @Override
     public void populateListItems(ArrayList<Food> list) {
         FoodListAdapter adapter = new FoodListAdapter(this, list);
-        adapter.setOnItemClick(new FoodListAdapter.Callback<Void, Integer>() {
+        adapter.setOnItemClick(new FoodListAdapter.Callback<Void, Long>() {
             @Override
-            public Void callback(Integer foodId) {
+            public Void callback(Long foodId) {
                 Intent intent = new Intent(AddFoodActivity.this, FoodDetailsActivity.class);
                 intent.putExtra(SELECTED_FOOD_ID, foodId);
                 //setResult(CODE_FOOD_SELECTION, intent);

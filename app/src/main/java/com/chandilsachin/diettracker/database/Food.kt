@@ -14,9 +14,9 @@ class Food(@ColumnInfo(name = "food_name") var foodName: String,
            @ColumnInfo(name = "carbs") var carbs: Double,
            @ColumnInfo(name = "fat") var fat: Double)
 {
-    @ColumnInfo(name = "food_id")
+    @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
-    var foodId: Int = 0
+    var id: Long = 0
     @ColumnInfo(name = "calories")
     var calories: Double = 0.toDouble()
 }

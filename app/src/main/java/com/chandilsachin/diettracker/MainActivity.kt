@@ -10,21 +10,20 @@ import android.support.v7.widget.RecyclerView
 import android.widget.RelativeLayout
 import android.widget.Toast
 import com.chandilsachin.diettracker.database.Food
+import com.chandilsachin.diettracker.database.FoodDatabase
 import com.chandilsachin.diettracker.mvp.view.ProgressDialog
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import java.io.IOException
 import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
-
-    private var dbManager: DatabaseManager? = null
-    private var presenter: MainPresenter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        dbManager = DatabaseManager.getInstance(this)
-        presenter = MainPresenter()
         initViews()
         setEvents()
         setUpDatabase()
@@ -38,11 +37,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun prepareDietList() {
-        Thread(Runnable {
-            val list = presenter!!.getDietList(this@MainActivity)
-            this@MainActivity.runOnUiThread { bindDataToList(list) }
-        }).start()
-
+        doAsync {
+            val list = FoodDatabase.getInstance(baseContext)?.getFood(Calendar.getInstance().time.time)
+            uiThread {
+                if(list != null)
+                    bindDataToList(list)
+            }
+        }
     }
 
 
@@ -65,18 +66,6 @@ class MainActivity : AppCompatActivity() {
         relativeLayoutAddBreakfast!!.setOnClickListener {
             val intent = Intent(this@MainActivity, AddFoodActivity::class.java)
             startActivityForResult(intent, AddFoodActivity.CODE_FOOD_SELECTION)
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            AddFoodActivity.CODE_FOOD_SELECTION -> {
-                val selectedFood = data.getIntExtra(AddFoodActivity.SELECTED_FOOD_ID, -1)
-                dbManager!!.saveFood(selectedFood, 1f, Calendar.getInstance().time)
-                Toast.makeText(this, "Selected Item: " + selectedFood, Toast.LENGTH_SHORT).show()
-                prepareDietList()
-            }
         }
     }
 
@@ -103,7 +92,7 @@ class MainActivity : AppCompatActivity() {
         override fun doInBackground(vararg params: Void): Void? {
             try {
                 val list = AddFoodPresenter().readFoodItemsFile(this@MainActivity)
-                dbManager!!.addFoodList(list)
+                FoodDatabase.getInstance(baseContext)?.addFoodList(list)
             } catch (e: IOException) {
                 e.printStackTrace()
             }
