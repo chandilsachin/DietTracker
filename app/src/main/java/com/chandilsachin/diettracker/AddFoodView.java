@@ -1,5 +1,7 @@
 package com.chandilsachin.diettracker;
 
+import com.chandilsachin.diettracker.database.Food;
+
 import java.util.ArrayList;
 
 /**

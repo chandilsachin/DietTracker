@@ -2,6 +2,8 @@ package com.chandilsachin.diettracker;
 
 import android.content.Context;
 
+import com.chandilsachin.diettracker.database.Food;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;

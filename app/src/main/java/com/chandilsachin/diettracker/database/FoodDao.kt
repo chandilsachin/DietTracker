@@ -20,7 +20,7 @@ interface FoodDao {
     }
 
     @Query("SELECT * FROM $ALL_FOOD_LIST WHERE $ID=(:id)")
-    fun getFoodDetails(id:Int)
+    fun getFoodDetails(id:Int):Food
 
     @Insert
     fun addFoodList(list:ArrayList<Food>)

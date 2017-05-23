@@ -34,15 +34,16 @@ class FoodDetailsActivity : AppCompatActivity() {
 
     private fun fetchFoodDetails():Unit{
         doAsync{
-            val food = DatabaseManager.getInstance(baseContext).getFoodDetails(selectedFoodId);
-            uiThread{
-                textViewFoodName.text = food.foodName
-                textViewFoodDesc.text = food.foodDesc
-                textViewCarbs.text = food.carbs.toString()
-                textViewFat.text = food.fat.toString()
-                textViewProtein.text = food.protein.toString()
-                textViewCalories.text = food.calories.toString()
-            }
+            val food = Database.getInstance(baseContext)?.foodDao()?.getFoodDetails(selectedFoodId);
+            if(food != null)
+                uiThread{
+                    textViewFoodName.text = food.foodName
+                    textViewFoodDesc.text = food.foodDesc
+                    textViewCarbs.text = food.carbs.toString()
+                    textViewFat.text = food.fat.toString()
+                    textViewProtein.text = food.protein.toString()
+                    textViewCalories.text = food.calories.toString()
+                }
         }
     }
 
