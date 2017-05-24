@@ -4,7 +4,6 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.chandilsachin.diettracker.database.FoodDatabase
 import com.chandilsachin.diettracker.database.PersonalizedFood
 import kotlinx.android.synthetic.main.activity_food_details.*
 import org.jetbrains.anko.doAsync
@@ -35,7 +34,8 @@ class FoodDetailsActivity : AppCompatActivity() {
 
     private fun fetchFoodDetails():Unit{
         doAsync{
-            val food = FoodDatabase.getInstance(baseContext)?.getFoodDetails(selectedFoodId);
+            //val food = FoodDatabase.getInstance(baseContext)?.getFoodDetails(selectedFoodId);
+            val food = DatabaseManager.getInstance(baseContext).getFoodDetails(selectedFoodId);
             if(food != null)
                 uiThread{
                     textViewFoodName.text = food.foodName
@@ -55,8 +55,8 @@ class FoodDetailsActivity : AppCompatActivity() {
                     //Database.getInstance(baseContext).
                     var food: PersonalizedFood = PersonalizedFood(editTextNoOfServings.text.toString().toInt(),"unit",Calendar.getInstance().time)
                     food.foodId = selectedFoodId
-                    FoodDatabase.getInstance(baseContext)?.saveFood(food)
-                    //DatabaseManager.getInstance(baseContext).saveFood(selectedFoodId, editTextNoOfServings.text.toString().toFloat(),Calendar.getInstance().time)
+                    //FoodDatabase.getInstance(baseContext)?.saveFood(food)
+                    DatabaseManager.getInstance(baseContext).saveFood(selectedFoodId, editTextNoOfServings.text.toString().toFloat(),Calendar.getInstance().time)
                     uiThread {
                         finish()
                     }

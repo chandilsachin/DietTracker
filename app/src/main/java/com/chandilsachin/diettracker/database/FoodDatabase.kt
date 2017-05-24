@@ -1,6 +1,7 @@
 package com.chandilsachin.diettracker.database
-
-import android.arch.persistence.room.*
+import android.arch.persistence.room.Database
+import android.arch.persistence.room.Room
+import android.arch.persistence.room.RoomDatabase
 import android.content.Context
 
 /**
@@ -9,16 +10,16 @@ import android.content.Context
 
 @Database(entities = arrayOf(Food::class, PersonalizedFood::class), version = 1)
 abstract class FoodDatabase : RoomDatabase(){
-    abstract fun foodDao():FoodDao
+    //abstract fun foodDao():FoodDao
 
-    companion object{
+    /*companion object{
         private val databaseName = "diet"
 
         var dbInstance:FoodDao? = null
-        fun getInstance(context:Context):FoodDao?{
+        private fun getInstance(context:Context):FoodDao?{
             if(dbInstance == null)
-                dbInstance = Room.inMemoryDatabaseBuilder(context, FoodDatabase::class.java).build().foodDao()
+                dbInstance = Room.databaseBuilder(context, FoodDatabase::class.java, databaseName).build().foodDao()
             return dbInstance;
         }
-    }
+    }*/
 }

@@ -1,5 +1,8 @@
 package com.chandilsachin.diettracker
 
+import android.arch.lifecycle.LifecycleActivity
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
@@ -8,17 +11,15 @@ import android.support.v7.widget.CardView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.RelativeLayout
-import android.widget.Toast
-import com.chandilsachin.diettracker.database.Food
-import com.chandilsachin.diettracker.database.FoodDatabase
+import com.chandilsachin.diettracker.Food
 import com.chandilsachin.diettracker.mvp.view.ProgressDialog
+import kotlinx.android.synthetic.main.layout_diary_page.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import java.io.IOException
 import java.util.*
-import kotlin.collections.ArrayList
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : LifecycleActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,34 +33,42 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpDatabase() {
         if (!InitPreferences(this).hasDataLoaded()) {
-            SetUpFoodDatabase().execute()
+            setUpFoodDatabase()
         }
     }
 
     private fun prepareDietList() {
-        doAsync {
-            val list = FoodDatabase.getInstance(baseContext)?.getFood(Calendar.getInstance().time.time)
+        val model = ViewModelProviders.of(this).get(MainActivityModel::class.java)
+        model.userLiveData.observe(this, android.arch.lifecycle.Observer<ArrayList<Food>> { list->
+            list?.let {
+                if(list.size > 0){
+                    bindDataToList(list)
+                }
+            }
+
+        })
+        /*doAsync {
+            //val list = FoodDatabase.getInstance(baseContext)?.getFood(Calendar.getInstance().time.time)
+            val list = DatabaseManager.getInstance(baseContext).getFoodOnDate(Calendar.getInstance().time);
             uiThread {
-                if(list != null)
+                if (list != null)
                     bindDataToList(list)
             }
-        }
+        }*/
     }
 
 
     private fun bindDataToList(list: ArrayList<Food>) {
-        val adapter = DietListAdapter(this, list)
-        recyclerViewDietList!!.adapter = adapter
+        val adapter = DietListAdapter(baseContext, list)
+        recyclerViewDietList.adapter = adapter
     }
 
     private var relativeLayoutAddBreakfast: RelativeLayout? = null
     private var linearLayoutBreakfast: CardView? = null
-    private var recyclerViewDietList: RecyclerView? = null
     fun initViews() {
         linearLayoutBreakfast = findViewById(R.id.linearLayoutBreakfast) as CardView
         relativeLayoutAddBreakfast = linearLayoutBreakfast!!.findViewById(R.id.relativeLayoutAddFood) as RelativeLayout
-        recyclerViewDietList = findViewById(R.id.recyclerViewDietList) as RecyclerView
-        recyclerViewDietList!!.layoutManager = LinearLayoutManager(this)
+        recyclerViewDietList.layoutManager = LinearLayoutManager(this)
     }
 
     fun setEvents() {
@@ -69,35 +78,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
+    fun setUpFoodDatabase(){
 
-    }
-
-    internal inner class SetUpFoodDatabase : AsyncTask<Void, Int, Void>() {
-
-        var dialog: android.app.ProgressDialog? = null
-
-        override fun onPreExecute() {
-            super.onPreExecute()
-            dialog = ProgressDialog.show(this@MainActivity, "Preparing Database", "Preparing food database...", true)
-        }
-
-        override fun onPostExecute(aVoid: Void) {
-            super.onPostExecute(aVoid)
-            dialog?.dismiss()
-            InitPreferences(this@MainActivity).setDataHasLoaded(true)
-        }
-
-        override fun doInBackground(vararg params: Void): Void? {
+        var dialog = ProgressDialog.show(this@MainActivity, "Preparing Database", "Preparing food database...", true)
+        doAsync {
             try {
                 val list = AddFoodPresenter().readFoodItemsFile(this@MainActivity)
-                FoodDatabase.getInstance(baseContext)?.addFoodList(list)
+                //FoodDatabase.getInstance(baseContext)?.addFoodList(list)
+                DatabaseManager.getInstance(baseContext).addFoodList(list);
             } catch (e: IOException) {
                 e.printStackTrace()
             }
-
-            return null
+            uiThread {
+                InitPreferences(this@MainActivity).setDataHasLoaded(true)
+                dialog?.dismiss()
+            }
         }
     }
 }

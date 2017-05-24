@@ -5,7 +5,7 @@ import android.content.res.AssetManager;
 import android.support.annotation.NonNull;
 import android.util.JsonReader;
 
-import com.chandilsachin.diettracker.database.Food;
+import com.chandilsachin.diettracker.Food;
 import com.chandilsachin.diettracker.io.JSONReader;
 import com.ne1c.rainbowmvp.ViewState;
 import com.ne1c.rainbowmvp.ViewStateListener;

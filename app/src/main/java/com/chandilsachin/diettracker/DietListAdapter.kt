@@ -6,16 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-
-import com.chandilsachin.diettracker.database.Food
-
-import java.util.ArrayList
+import java.util.*
 
 /**
  * Created by Sachin Chandil on 29/04/2017.
  */
 
-class DietListAdapter(context: Context, private val foodList: ArrayList<Food>) : RecyclerView.Adapter<DietListAdapter.ViewHolder>() {
+class DietListAdapter(context: Context, val foodList: ArrayList<Food>) : RecyclerView.Adapter<DietListAdapter.ViewHolder>() {
 
     private val inflater: LayoutInflater
     private var onItemClick: Callback<Void, Long>? = null

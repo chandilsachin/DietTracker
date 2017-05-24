@@ -7,7 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.chandilsachin.diettracker.database.Food;
+import com.chandilsachin.diettracker.Food;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -67,7 +67,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     }
 
-    public Food getFoodDetails(int id) {
+    public Food getFoodDetails(long id) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(ALL_FOOD_LIST, null, ID + "=?", new String[]{String.valueOf(id)}, null, null, null);
         Food food = null;
@@ -102,17 +102,32 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 list.add(food);
             } while (cursor.moveToNext());
         }
+        db.close();
         return list;
     }
 
-    public boolean saveFood(int foodId, float quantity, Date date) {
+    public int getFoodQuantityOnDate(Long foodId, Date date) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("select "+QUANTITY+" from " + PERSONALISED_FOOD_LIST + " where food_id = ? and date = ?", new String[]{foodId.toString(), toYYYYMMDD(date)});
+
+        int quantity = -1;
+        if (cursor.moveToFirst()) {
+            quantity = cursor.getInt(0);
+        }
+        db.close();
+        return quantity;
+    }
+
+    public boolean saveFood(long foodId, float quantity, Date date) {
         boolean res = false;
+        int q = getFoodQuantityOnDate(foodId, date);
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(FOOD_ID, foodId);
-        values.put(QUANTITY, quantity);
+        values.put(QUANTITY, quantity + (q > 0?q:0));
         values.put(DATE, toYYYYMMDD(date));
-        res = db.insert(PERSONALISED_FOOD_LIST, null, values) != -1;
+        res = db.insertWithOnConflict(PERSONALISED_FOOD_LIST, null, values, SQLiteDatabase.CONFLICT_REPLACE) != -1;
+        db.close();
         return res;
     }
 
@@ -154,7 +169,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
             DESC + " TEXT," +
             PROTEIN + " REAL," +
             CARBS + " REAL," +
-            FAT + " REAL" +
+            FAT + " REAL," +
+            "CONSTRAINT name_unique UNIQUE ("+NAME+")" +
             ")";
 
 

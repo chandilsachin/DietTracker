@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.chandilsachin.diettracker.database.Food;
+import com.chandilsachin.diettracker.Food;
 
 import java.util.ArrayList;
 

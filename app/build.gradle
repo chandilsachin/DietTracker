@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
+//apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 25
@@ -35,13 +35,13 @@ dependencies {
     compile 'com.github.ne1c:rainbowmvp:1.2.1'
     compile "org.jetbrains.anko:anko-commons:0.10.0"
 
-    /*annotationProcessor "android.arch.persistence.room:compiler:1.0.0-alpha1"
+    compile "android.arch.lifecycle:runtime:1.0.0-alpha1"
     compile "android.arch.lifecycle:extensions:1.0.0-alpha1"
-    annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha1"*/
+    annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha1"
 
     compile "android.arch.persistence.room:runtime:1.0.0-alpha1"
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0-alpha1"
-    kapt "android.arch.persistence.room:compiler:1.0.0-alpha1"
+    //kapt "android.arch.persistence.room:compiler:1.0.0-alpha1"
 
     testCompile 'junit:junit:4.12'
 }

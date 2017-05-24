@@ -10,7 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
-import com.chandilsachin.diettracker.database.Food;
+import com.chandilsachin.diettracker.Food;
 
 import java.io.IOException;
 import java.util.ArrayList;
