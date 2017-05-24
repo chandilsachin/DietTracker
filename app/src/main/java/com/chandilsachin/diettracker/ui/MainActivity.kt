@@ -1,23 +1,19 @@
-package com.chandilsachin.diettracker
+package com.chandilsachin.diettracker.ui
 
 import android.arch.lifecycle.LifecycleActivity
-import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
-import android.os.AsyncTask
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.CardView
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.widget.RelativeLayout
-import com.chandilsachin.diettracker.Food
+import com.chandilsachin.diettracker.*
+import com.chandilsachin.diettracker.database.Food
+import com.chandilsachin.diettracker.database.FoodDatabase
 import com.chandilsachin.diettracker.mvp.view.ProgressDialog
+import com.chandilsachin.diettracker.util.initViewModel
 import kotlinx.android.synthetic.main.layout_diary_page.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
-import java.io.IOException
-import java.util.*
 
 class MainActivity : LifecycleActivity() {
 
@@ -34,12 +30,13 @@ class MainActivity : LifecycleActivity() {
     private fun setUpDatabase() {
         if (!InitPreferences(this).hasDataLoaded()) {
             setUpFoodDatabase()
+
         }
     }
 
     private fun prepareDietList() {
-        val model = ViewModelProviders.of(this).get(MainActivityModel::class.java)
-        model.userLiveData.observe(this, android.arch.lifecycle.Observer<ArrayList<Food>> { list->
+        val model = initViewModel(MainActivityModel::class.java)
+        model.personalisedFoodList.observe(this, Observer{ list->
             list?.let {
                 if(list.size > 0){
                     bindDataToList(list)
@@ -47,32 +44,19 @@ class MainActivity : LifecycleActivity() {
             }
 
         })
-        /*doAsync {
-            //val list = FoodDatabase.getInstance(baseContext)?.getFood(Calendar.getInstance().time.time)
-            val list = DatabaseManager.getInstance(baseContext).getFoodOnDate(Calendar.getInstance().time);
-            uiThread {
-                if (list != null)
-                    bindDataToList(list)
-            }
-        }*/
     }
 
-
-    private fun bindDataToList(list: ArrayList<Food>) {
+    private fun bindDataToList(list: List<Food>) {
         val adapter = DietListAdapter(baseContext, list)
         recyclerViewDietList.adapter = adapter
     }
 
-    private var relativeLayoutAddBreakfast: RelativeLayout? = null
-    private var linearLayoutBreakfast: CardView? = null
     fun initViews() {
-        linearLayoutBreakfast = findViewById(R.id.linearLayoutBreakfast) as CardView
-        relativeLayoutAddBreakfast = linearLayoutBreakfast!!.findViewById(R.id.relativeLayoutAddFood) as RelativeLayout
         recyclerViewDietList.layoutManager = LinearLayoutManager(this)
     }
 
     fun setEvents() {
-        relativeLayoutAddBreakfast!!.setOnClickListener {
+        linearLayoutBreakfast.setOnClickListener {
             val intent = Intent(this@MainActivity, AddFoodActivity::class.java)
             startActivityForResult(intent, AddFoodActivity.CODE_FOOD_SELECTION)
         }
@@ -82,13 +66,10 @@ class MainActivity : LifecycleActivity() {
 
         var dialog = ProgressDialog.show(this@MainActivity, "Preparing Database", "Preparing food database...", true)
         doAsync {
-            try {
                 val list = AddFoodPresenter().readFoodItemsFile(this@MainActivity)
-                //FoodDatabase.getInstance(baseContext)?.addFoodList(list)
-                DatabaseManager.getInstance(baseContext).addFoodList(list);
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
+                FoodDatabase.getInstance(baseContext).addFoodList(list)
+                //DatabaseManager.getInstance(baseContext).addFoodList(list);
+
             uiThread {
                 InitPreferences(this@MainActivity).setDataHasLoaded(true)
                 dialog?.dismiss()

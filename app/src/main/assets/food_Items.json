@@ -6,7 +6,8 @@
       "calories":100,
       "carbs":30,
       "fat":3,
-      "protein":7
+      "protein":7,
+      "calorie":230
     }
   },
   {
@@ -16,7 +17,19 @@
       "calories":20,
       "carbs":10,
       "fat":2,
-      "protein":10
+      "protein":10,
+      "calorie":210
+    }
+  },
+  {
+    "food_name":"Food 3",
+    "food_desc":"dsc 3",
+    "facts":{
+      "calories":20,
+      "carbs":10,
+      "fat":2,
+      "protein":10,
+      "calorie":210
     }
   }
 ]

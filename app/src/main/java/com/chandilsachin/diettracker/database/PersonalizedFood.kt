@@ -6,10 +6,10 @@ import android.arch.persistence.room.ForeignKey
 import org.jetbrains.annotations.PropertyKey
 import java.util.*
 
-//@Entity(primaryKeys = arrayOf("food_id","date"))
-class PersonalizedFood(@ColumnInfo(name = "quantity") var quantity: Int,
-                       @ColumnInfo(name = "unit") var unit: String,
-                       @ColumnInfo(name = "date") var date: Date){
+@Entity(primaryKeys = arrayOf("food_id","date"),tableName = "personalised_food")
+class PersonalizedFood(@ColumnInfo(name = "quantity") var quantity: Int = 1,
+                       @ColumnInfo(name = "unit") var unit: String = "",
+                       @ColumnInfo(name = "date") var date: Calendar = Calendar.getInstance()){
 
     @ColumnInfo(name = "food_id")
     var foodId:Long = 0
