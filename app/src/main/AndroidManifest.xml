@@ -17,11 +17,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AddFoodActivity"
+            android:name=".ui.AddFoodActivity"
             android:label="@string/addFood"
             android:parentActivityName=".ui.MainActivity"/>
 
-        <activity android:name=".FoodDetailsActivity"
+        <activity android:name=".ui.FoodDetailsActivity"
             android:label="@string/foodDetailsPage"
                   android:parentActivityName=".ui.MainActivity">
         </activity>

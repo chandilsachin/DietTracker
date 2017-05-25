@@ -1,24 +1,18 @@
-package com.chandilsachin.diettracker
+package com.chandilsachin.diettracker.ui
 
 import android.arch.lifecycle.LifecycleActivity
 import android.arch.lifecycle.Observer
-import android.content.Context
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.EditText
+import com.chandilsachin.diettracker.adapters.FoodListAdapter
+import com.chandilsachin.diettracker.R
 
-import com.chandilsachin.diettracker.Food
 import com.chandilsachin.diettracker.util.initViewModel
 import com.chandilsachin.diettracker.view_model.AddFoodViewModel
 import kotlinx.android.synthetic.main.activity_add_food.*
-
-import java.io.IOException
-import java.util.ArrayList
 
 class AddFoodActivity : LifecycleActivity() {
 

@@ -1,9 +1,10 @@
-package com.chandilsachin.diettracker
+package com.chandilsachin.diettracker.ui
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import com.chandilsachin.diettracker.R
 import com.chandilsachin.diettracker.database.FoodDatabase
 import com.chandilsachin.diettracker.database.PersonalizedFood
 import kotlinx.android.synthetic.main.activity_food_details.*
@@ -54,7 +55,7 @@ class FoodDetailsActivity : AppCompatActivity() {
             R.id.addFood -> {
                 doAsync {
                     //Database.getInstance(baseContext).
-                    var food: PersonalizedFood = PersonalizedFood(editTextNoOfServings.text.toString().toInt(),"unit",Calendar.getInstance())
+                    var food: PersonalizedFood = PersonalizedFood(editTextNoOfServings.text.toString().toInt(),"unit", Calendar.getInstance())
                     food.foodId = selectedFoodId
                     FoodDatabase.getInstance(baseContext).saveFood(food)
                     //DatabaseManager.getInstance(baseContext).saveFood(selectedFoodId, editTextNoOfServings.text.toString().toFloat(),Calendar.getInstance().time)

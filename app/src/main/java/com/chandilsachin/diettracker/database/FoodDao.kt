@@ -54,6 +54,7 @@ interface FoodDao {
 
     @Query("SELECT * FROM $PERSONALISED_FOOD_LIST WHERE $FOOD_ID=:arg0 and $DATE=:arg1")
     fun getFood(foodId:Int, date:Calendar):PersonalizedFood
+
     //@Query("SELECT * FROM $ALL_FOOD_LIST where $ID in (select $FOOD_ID from $PERSONALISED_FOOD_LIST where $DATE = :arg0)")
     @Query("SELECT * FROM $ALL_FOOD_LIST where $ID in (select $FOOD_ID from $PERSONALISED_FOOD_LIST where $DATE = :arg0)")
     fun getFood(date:Calendar):LiveData<List<Food>>

@@ -1,4 +1,4 @@
-package com.chandilsachin.diettracker
+package com.chandilsachin.diettracker.other
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
@@ -7,6 +7,7 @@ import android.arch.persistence.room.PrimaryKey
 /**
  * Created by sachin on 22/5/17.
  */
+@Deprecated("")
 class Food( var foodName: String,
            var foodDesc: String,
            var protein: Double,

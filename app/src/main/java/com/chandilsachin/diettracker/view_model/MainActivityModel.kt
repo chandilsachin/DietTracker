@@ -1,4 +1,4 @@
-package com.chandilsachin.diettracker
+package com.chandilsachin.diettracker.view_model
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel

@@ -1,4 +1,4 @@
-package com.chandilsachin.diettracker
+package com.chandilsachin.diettracker.adapters
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.chandilsachin.diettracker.R
 import com.chandilsachin.diettracker.database.Food
 
 import java.util.ArrayList

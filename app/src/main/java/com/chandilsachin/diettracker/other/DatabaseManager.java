@@ -1,13 +1,10 @@
-package com.chandilsachin.diettracker;
+package com.chandilsachin.diettracker.other;
 
-import android.arch.persistence.room.Room;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import com.chandilsachin.diettracker.Food;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,7 +14,7 @@ import java.util.Iterator;
 /**
  * Created by Sachin Chandil on 01/05/2017.
  */
-
+@Deprecated
 public class DatabaseManager extends SQLiteOpenHelper {
 
     private static final int VERSION_NO = 1;
