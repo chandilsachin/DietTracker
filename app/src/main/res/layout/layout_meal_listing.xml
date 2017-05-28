@@ -49,14 +49,17 @@
                 <TableRow>
 
                     <TextView
+                        android:id="@+id/textViewTotalCalories"
                         style="@style/textView_values"
                         android:text="0" />
 
                     <TextView
+                        android:id="@+id/textViewTotalProtein"
                         style="@style/textView_values"
                         android:text="0" />
 
                     <TextView
+                        android:id="@+id/textViewTotalCarbs"
                         style="@style/textView_values"
                         android:text="0" />
                 </TableRow>

@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.chandilsachin.diettracker.R
+import com.chandilsachin.diettracker.database.DietFood
 import com.chandilsachin.diettracker.database.Food
 import java.util.*
 
@@ -13,46 +15,40 @@ import java.util.*
  * Created by Sachin Chandil on 29/04/2017.
  */
 
-class DietListAdapter(context: android.content.Context, val foodList: List<Food>) : android.support.v7.widget.RecyclerView.Adapter<DietListAdapter.ViewHolder>() {
+class DietListAdapter(context: android.content.Context, val foodList: List<DietFood>) : android.support.v7.widget.RecyclerView.Adapter<DietListAdapter.ViewHolder>() {
 
-    private val inflater: android.view.LayoutInflater
-    private var onItemClick: com.chandilsachin.diettracker.adapters.DietListAdapter.Callback<Void, Long>? = null
+    private val inflater = LayoutInflater.from(context)
+    private var onItemClick: DietListAdapter.Callback<Void, Long>? = null
 
-    init {
-        inflater = android.view.LayoutInflater.from(context)
-    }
-
-    override fun onCreateViewHolder(parent: android.view.ViewGroup, viewType: Int): com.chandilsachin.diettracker.adapters.DietListAdapter.ViewHolder {
-        val holder = ViewHolder(inflater.inflate(com.chandilsachin.diettracker.R.layout.layout_food_list_item, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): com.chandilsachin.diettracker.adapters.DietListAdapter.ViewHolder {
+        val holder = ViewHolder(inflater.inflate(R.layout.layout_food_list_item, parent, false))
         return holder
     }
 
-    override fun onBindViewHolder(holder: com.chandilsachin.diettracker.adapters.DietListAdapter.ViewHolder, position: Int) {
-        holder.textViewFoodName.text = foodList[position].foodName
-        holder.textViewFoodDesc.text = foodList[position].foodDesc
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
+            holder.bindView(foodList[position])
 
-        holder.itemView.setOnClickListener {
-            if (onItemClick != null)
-                onItemClick!!.callback(foodList[position].id)
-        }
-    }
 
-    override fun getItemCount(): Int {
-        return foodList.size
-    }
+    override fun getItemCount() = foodList.size
 
-    fun setOnItemClick(onItemClick: com.chandilsachin.diettracker.adapters.DietListAdapter.Callback<Void, Long>) {
+    fun setOnItemClick(onItemClick: Callback<Void, Long>) {
         this.onItemClick = onItemClick
     }
 
-    inner class ViewHolder(itemView: android.view.View) : android.support.v7.widget.RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var textViewFoodName: android.widget.TextView
-        var textViewFoodDesc: android.widget.TextView
+        private val textViewFoodName = itemView.findViewById(R.id.textViewFoodName) as TextView
+        private val textViewFoodDesc = itemView.findViewById(R.id.textViewFoodDesc) as TextView
+        private val textViewQuantity = itemView.findViewById(R.id.textViewQuantity) as TextView
 
-        init {
-            textViewFoodName = itemView.findViewById(com.chandilsachin.diettracker.R.id.textViewFoodName) as android.widget.TextView
-            textViewFoodDesc = itemView.findViewById(com.chandilsachin.diettracker.R.id.textViewFoodDesc) as android.widget.TextView
+        fun bindView(food:DietFood){
+            textViewFoodName.text = food.foodName
+            textViewFoodDesc.text = food.foodDesc
+            textViewQuantity.text = "x${food.quantity}"
+            itemView.setOnClickListener {
+                if (onItemClick != null)
+                    onItemClick!!.callback(foodList[position].id)
+            }
         }
     }
 

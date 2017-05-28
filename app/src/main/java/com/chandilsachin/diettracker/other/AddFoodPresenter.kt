@@ -1,5 +1,8 @@
 package com.chandilsachin.diettracker.other
 
+import android.os.Bundle
+import com.ne1c.rainbowmvp.base.BaseActivity
+
 /**
  * Created by Sachin Chandil on 29/04/2017.
  */

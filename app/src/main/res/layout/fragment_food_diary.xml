@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/relativeNavigationBar"
+        android:layout_width="match_parent"
+        android:background="@drawable/navigation_bar_strip"
+        android:layout_height="45dp">
+
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/back" />
+
+        <ImageView
+            android:id="@+id/imgForward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/forward" />
+
+        <TextView
+            android:id="@+id/textViewDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/imgForward"
+            android:layout_toRightOf="@id/imgBack"
+            android:gravity="center_horizontal"
+            android:text="To day" />
+
+    </RelativeLayout>
+
+    <include layout="@layout/layout_diary_page" />
+</LinearLayout>
+
+

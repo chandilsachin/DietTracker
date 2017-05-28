@@ -15,12 +15,19 @@ abstract class FoodDatabase : RoomDatabase(){
     abstract fun foodDao():FoodDao
 
     companion object{
+        private val TEST_MODE = false
         private val databaseName = "diet"
 
         var dbInstance:FoodDao? = null
         fun getInstance(context:Context):FoodDao{
-            if(dbInstance == null)
-                dbInstance = Room.databaseBuilder(context, FoodDatabase::class.java, databaseName).build().foodDao()
+            if(dbInstance == null){
+                if(TEST_MODE)
+                    dbInstance = Room.inMemoryDatabaseBuilder(context, FoodDatabase::class.java).allowMainThreadQueries().build().foodDao()
+                else
+                    dbInstance = Room.databaseBuilder(context, FoodDatabase::class.java, databaseName).build().foodDao()
+
+            }
+
             return dbInstance!!;
         }
     }
