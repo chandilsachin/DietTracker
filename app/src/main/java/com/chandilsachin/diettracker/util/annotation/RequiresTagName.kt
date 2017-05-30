@@ -5,4 +5,4 @@ package com.chandilsachin.diettracker.util.annotation
  */
 @Target(AnnotationTarget.CLASS)
 @MustBeDocumented
-annotation class RequiresTagName
+annotation class RequiresTagName(val tagName:String)

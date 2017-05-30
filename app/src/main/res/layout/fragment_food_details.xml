@@ -1,139 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.chandilsachin.diettracker.ui.FoodDetailsFragment">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@drawable/layer_list_bottom_thin_border"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary">
 
-        <TextView
-            android:id="@+id/textViewFoodName"
-            style="@style/add_food_food_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Food Name"
-            android:textStyle="bold"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@drawable/layer_list_bottom_thin_border"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/textViewFoodDesc"
-            style="@style/add_food_food_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Food Desc"/>
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@drawable/layer_list_bottom_thin_border"
-        android:orientation="horizontal">
-
-        <TextView
-            style="@style/add_food_food_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="@string/noOfServings"/>
-
-        <EditText
-            android:id="@+id/editTextNoOfServings"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
-            android:inputType="number"
-            android:text="1"/>
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@drawable/layer_list_bottom_thin_border"
-        android:orientation="horizontal">
-
-        <TableLayout
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/my_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:stretchColumns="*">
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            app:layout_collapseMode="pin"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+    </android.support.design.widget.AppBarLayout>
 
-            <TableRow>
 
-                <TextView
-                    android:id="@+id/textViewCarbs"
-                    style="@style/food_nutrition_fact_values"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="-"/>
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                <TextView
-                    android:id="@+id/textViewFat"
-                    style="@style/food_nutrition_fact_values"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="-"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/textViewProtein"
-                    style="@style/food_nutrition_fact_values"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="-"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/layer_list_bottom_thin_border"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textViewCalories"
-                    style="@style/food_nutrition_fact_values"
+                    android:id="@+id/textViewFoodName"
+                    style="@style/add_food_food_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="-"/>
-            </TableRow>
+                    android:text="Food Name"
+                    android:textStyle="bold" />
 
-            <TableRow>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/layer_list_bottom_thin_border"
+                android:orientation="horizontal">
 
                 <TextView
-                    style="@style/food_nutrition_fact_label"
+                    android:id="@+id/textViewFoodDesc"
+                    style="@style/add_food_food_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/Carbs_g"/>
+                    android:text="Food Desc" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/layer_list_bottom_thin_border"
+                android:orientation="horizontal">
 
                 <TextView
-                    style="@style/food_nutrition_fact_label"
+                    style="@style/add_food_food_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/fat_g"/>
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/noOfServings" />
 
-                <TextView
-                    style="@style/food_nutrition_fact_label"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/editTextNoOfServings"
+                    android:layout_width="30dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/protein_g"/>
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="5dp"
+                    android:inputType="number"
+                    android:text="1" />
 
-                <TextView
-                    style="@style/food_nutrition_fact_label"
-                    android:layout_width="wrap_content"
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/layer_list_bottom_thin_border"
+                android:orientation="horizontal">
+
+                <TableLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/calories"/>
-            </TableRow>
+                    android:layout_gravity="center_vertical"
+                    android:stretchColumns="*">
 
-        </TableLayout>
+                    <TableRow>
 
-    </LinearLayout>
+                        <TextView
+                            android:id="@+id/textViewCarbs"
+                            style="@style/food_nutrition_fact_values"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-" />
 
-</LinearLayout>
+                        <TextView
+                            android:id="@+id/textViewFat"
+                            style="@style/food_nutrition_fact_values"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-" />
+
+                        <TextView
+                            android:id="@+id/textViewProtein"
+                            style="@style/food_nutrition_fact_values"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-" />
+
+                        <TextView
+                            android:id="@+id/textViewCalories"
+                            style="@style/food_nutrition_fact_values"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            style="@style/food_nutrition_fact_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/Carbs_g" />
+
+                        <TextView
+                            style="@style/food_nutrition_fact_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fat_g" />
+
+                        <TextView
+                            style="@style/food_nutrition_fact_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/protein_g" />
+
+                        <TextView
+                            style="@style/food_nutrition_fact_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/calories" />
+                    </TableRow>
+
+                </TableLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

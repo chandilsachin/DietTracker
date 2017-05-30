@@ -1,45 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/relativeNavigationBar"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:background="@drawable/navigation_bar_strip"
-        android:layout_height="45dp">
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary">
 
-        <ImageView
-            android:id="@+id/imgBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/back" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/my_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            app:layout_collapseMode="pin"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-        <ImageView
-            android:id="@+id/imgForward"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/forward" />
+        <RelativeLayout
+            android:id="@+id/relativeNavigationBar"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
 
-        <TextView
-            android:id="@+id/textViewDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/imgForward"
-            android:layout_toRightOf="@id/imgBack"
-            android:gravity="center_horizontal"
-            android:text="To day" />
+            android:background="@drawable/navigation_bar_strip">
 
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/imgBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/back" />
 
-    <include layout="@layout/layout_diary_page" />
-</LinearLayout>
+            <ImageView
+                android:id="@+id/imgForward"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/forward" />
+
+            <TextView
+                android:id="@+id/textViewDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/imgForward"
+                android:layout_toRightOf="@id/imgBack"
+                android:gravity="center_horizontal"
+                android:text="To day" />
+
+        </RelativeLayout>
+
+        <include
+            android:id="@+id/linearLayoutBreakfast"
+            layout="@layout/layout_meal_listing"/>
+    </android.support.design.widget.AppBarLayout>
 
 
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewDietList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:scrollbars="vertical" />
+</android.support.design.widget.CoordinatorLayout>

@@ -4,6 +4,7 @@ import android.content.Context
 import com.chandilsachin.diettracker.database.Food
 import com.chandilsachin.diettracker.database.FoodDatabase
 import com.chandilsachin.diettracker.database.PersonalizedFood
+import com.chandilsachin.diettracker.model.Date
 
 /**
  * Created by sachin on 27/5/17.
@@ -15,6 +16,9 @@ class FoodDetailsRepository {
     }
 
     fun saveFood(context: Context, food:PersonalizedFood){
+        val tempFood = FoodDatabase.getInstance(context).getFood(food.foodId, Date())
+        if(tempFood != null)
+            food.quantity += tempFood.quantity
         FoodDatabase.getInstance(context).saveFood(food)
     }
 

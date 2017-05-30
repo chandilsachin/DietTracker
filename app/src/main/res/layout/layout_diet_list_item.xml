@@ -28,7 +28,11 @@
 
                 <TextView
                     style="@style/textView_values"
-                    android:text="Calorie" />
+                    android:text="Carbs" />
+
+                <TextView
+                    style="@style/textView_values"
+                    android:text="Fat" />
 
                 <TextView
                     style="@style/textView_values"
@@ -36,7 +40,7 @@
 
                 <TextView
                     style="@style/textView_values"
-                    android:text="Carbs" />
+                    android:text="Calorie" />
             </TableRow>
 
             <TableRow>

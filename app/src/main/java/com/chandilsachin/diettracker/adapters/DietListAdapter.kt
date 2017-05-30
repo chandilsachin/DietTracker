@@ -15,7 +15,7 @@ import java.util.*
  * Created by Sachin Chandil on 29/04/2017.
  */
 
-class DietListAdapter(context: android.content.Context, val foodList: List<DietFood>) : android.support.v7.widget.RecyclerView.Adapter<DietListAdapter.ViewHolder>() {
+class DietListAdapter(context: android.content.Context, var foodList: List<DietFood>) : android.support.v7.widget.RecyclerView.Adapter<DietListAdapter.ViewHolder>() {
 
     private val inflater = LayoutInflater.from(context)
     private var onItemClick: DietListAdapter.Callback<Void, Long>? = null
@@ -45,6 +45,7 @@ class DietListAdapter(context: android.content.Context, val foodList: List<DietF
             textViewFoodName.text = food.foodName
             textViewFoodDesc.text = food.foodDesc
             textViewQuantity.text = "x${food.quantity}"
+            textViewQuantity.visibility = View.VISIBLE
             itemView.setOnClickListener {
                 if (onItemClick != null)
                     onItemClick!!.callback(foodList[position].id)
