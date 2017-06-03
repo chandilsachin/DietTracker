@@ -11,12 +11,6 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 
-/**
- * <h1>@BBI Docs</h1> <h1>public class BitmapsManager</h1>
- * <p>
- * Handles bitmap operations.
- * </p>
- */
 public class BitmapsManager
 {
 

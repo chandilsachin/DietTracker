@@ -19,11 +19,6 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
 
-/**
- * <h1>@BBI Docs</h1>
- * <h1>public class JSONReader</h1>
- * <p>Represents JSON file operation.</p>
- */
 public class JSONReader
 {
 

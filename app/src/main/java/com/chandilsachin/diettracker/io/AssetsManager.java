@@ -43,7 +43,7 @@ public class AssetsManager
                 reader.close();
         } catch (IOException e)
         {
-            LogCatManager.printLog(e);
+            e.printStackTrace();
         }
     }
 
