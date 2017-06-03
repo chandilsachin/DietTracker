@@ -2,15 +2,12 @@ package com.chandilsachin.diettracker.view_model
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import com.chandilsachin.diettracker.database.DietFood
-import com.chandilsachin.diettracker.database.Food
-import com.chandilsachin.diettracker.database.FoodDatabase
 import com.chandilsachin.diettracker.database.PersonalizedFood
 import com.chandilsachin.diettracker.model.Date
-import com.chandilsachin.diettracker.repository.MainActivityRepository
-import java.util.*
+import com.chandilsachin.diettracker.repository.FoodRepository
+import java.util.concurrent.TimeUnit
 
 /**
  * Created by Sachin Chandil on 02/05/2017.
@@ -18,7 +15,7 @@ import java.util.*
 
 class MainActivityModel constructor(application: Application) : AndroidViewModel(application) {
 
-    private val repo = MainActivityRepository()
+    private val repo = FoodRepository()
 
     val personalisedFoodList: MutableLiveData<List<DietFood>> = MutableLiveData()
 
@@ -26,7 +23,7 @@ class MainActivityModel constructor(application: Application) : AndroidViewModel
      * Fetches food list on given date date
      */
     fun fetchFoodListOn(date:Date):()->Unit{
-        val list = repo.getTodaysFoodList(getApplication())
+        val list = repo.getFoodListOn(date, getApplication())
         return {
             personalisedFoodList.value = list
         }
@@ -43,4 +40,11 @@ class MainActivityModel constructor(application: Application) : AndroidViewModel
     fun prepareInitDatabase(){
         repo.setUpFoodDatabase(getApplication())
     }
+
+    fun calculateDiaryPages():Int{
+        val days = TimeUnit.DAYS.convert(Date().getTime() - repo.getLastDateOfListing(getApplication()).getTime(),
+                TimeUnit.MILLISECONDS).toInt()
+        return days + 1;
+    }
+
 }

@@ -15,7 +15,7 @@ import ru.rambler.libs.swipe_layout.SwipeLayout
  * Created by Sachin Chandil on 29/04/2017.
  */
 
-class DietListAdapter(context: android.content.Context) : RecyclerView.Adapter<DietListAdapter.ViewHolder>(){
+class DietListAdapter(context: android.content.Context, val editable:Boolean = true) : RecyclerView.Adapter<DietListAdapter.ViewHolder>(){
 
 
     var foodList: List<DietFood> = emptyList()
@@ -51,18 +51,21 @@ class DietListAdapter(context: android.content.Context) : RecyclerView.Adapter<D
             textViewFoodDesc.text = food.foodDesc
             textViewQuantity.text = "x${food.quantity}"
             textViewQuantity.visibility = View.VISIBLE
-            swipeLayoutDietListItem.isRightSwipeEnabled = true
-            swipeLayoutDietListItem.isLeftSwipeEnabled = true
+            if(editable){
+                swipeLayoutDietListItem.isRightSwipeEnabled = true
+                swipeLayoutDietListItem.isLeftSwipeEnabled = true
 
-            textViewDietItemEdit.setOnClickListener {
-                onItemEditClick(food)
-                swipeLayoutDietListItem.reset()
+                textViewDietItemEdit.setOnClickListener {
+                    onItemEditClick(food)
+                    swipeLayoutDietListItem.reset()
+                }
+
+                textViewDietItemDelete.setOnClickListener(View.OnClickListener {
+                    onItemDeleteClick(food)
+                    swipeLayoutDietListItem.reset()
+                })
             }
 
-            textViewDietItemDelete.setOnClickListener(View.OnClickListener {
-                onItemDeleteClick(food)
-                swipeLayoutDietListItem.reset()
-            })
         }
     }
 }

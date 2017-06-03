@@ -64,4 +64,7 @@ interface FoodDao {
     //@Query("SELECT * FROM $ALL_FOOD_LIST where $ID in (select $FOOD_ID from $PERSONALISED_FOOD_LIST where $DATE = :arg0)")
     @Query("SELECT $ID,$NAME,$DESC,$PROTEIN,$CARBS,$FAT,$CALORIES,$PERSONALISED_FOOD_LIST.$QUANTITY FROM $ALL_FOOD_LIST,$PERSONALISED_FOOD_LIST where $ID = $PERSONALISED_FOOD_LIST.$FOOD_ID and $DATE = :arg0")
     fun getFood(date:Date):List<DietFood>
+
+    @Query("SELECT $DATE FROM $PERSONALISED_FOOD_LIST ORDER BY $DATE LIMIT 1")
+    fun getLastDateOfListing():Date
 }

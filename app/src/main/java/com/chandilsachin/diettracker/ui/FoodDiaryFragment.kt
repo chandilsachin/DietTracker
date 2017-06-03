@@ -48,28 +48,26 @@ class FoodDiaryFragment : BaseFragment() {
     }
 
     fun init() {
-
-        setSupportActionBar(my_toolbar)
         recyclerViewDietList.layoutManager = LinearLayoutManager(context)
         date = arguments.getSerializable(DATE) as Date
+        textViewDate.text = date.getPrettyDate()
+
+        if(!date.equals(Date()))
+            relativeLayoutAddFood.visibility = View.GONE
     }
 
     private fun setUpDatabase() {
 
-        //val dialog = ProgressDialog.show(baseContext, "Preparing Database", "Preparing food database...", true)
         doAsync {
             if (!InitPreferences(context).hasDataLoaded()) {
                 model.prepareInitDatabase()
                 InitPreferences(context).setDataHasLoaded(true)
             }
-            uiThread {
-                //dialog?.dismiss()
-            }
         }
     }
 
     private fun prepareDietList() {
-        val adapter = DietListAdapter(context)
+        val adapter = DietListAdapter(context, date.equals(Date()))
         recyclerViewDietList.adapter = adapter
         model.personalisedFoodList.observe(this, Observer { list ->
             list?.let {
@@ -127,14 +125,14 @@ class FoodDiaryFragment : BaseFragment() {
     }
 
     fun setEvents() {
-        linearLayoutBreakfast.setOnClickListener {
+        relativeLayoutAddFood.setOnClickListener {
             loadFragment(R.id.frameLayoutFragment, FoodListFragment.getInstance(activity))
         }
     }
 
     companion object {
         private val DATE = "foodDiaryFragment.date"
-        fun getInstance(date: Date = Date(), activity: FragmentActivity): Fragment {
+        fun getInstance(date: Date = Date(), activity: FragmentActivity? = null): Fragment {
             var fragment = findInstance(activity)
             if (fragment == null) {
                 fragment = FoodDiaryFragment()

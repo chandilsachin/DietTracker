@@ -28,19 +28,19 @@
 
                     <TextView
                         style="@style/textView_values"
-                        android:text="Carbs" />
+                        android:text="@string/carbs" />
 
                     <TextView
                         style="@style/textView_values"
-                        android:text="Fat" />
+                        android:text="@string/fat" />
 
                     <TextView
                         style="@style/textView_values"
-                        android:text="Protein" />
+                        android:text="@string/protein" />
 
                     <TextView
                         style="@style/textView_values"
-                        android:text="Calorie" />
+                        android:text="@string/calorie" />
                 </TableRow>
 
                 <TableRow>
@@ -80,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:text="+ Add Food" />
+                android:text="@string/add_food" />
 
         </RelativeLayout>
     </LinearLayout>

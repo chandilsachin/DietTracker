@@ -8,20 +8,17 @@ import android.support.v7.app.AppCompatActivity
 import android.view.*
 import com.chandilsachin.diettracker.R
 import com.chandilsachin.diettracker.database.PersonalizedFood
+import com.chandilsachin.diettracker.model.Date
 import com.chandilsachin.diettracker.util.*
 import com.chandilsachin.diettracker.util.annotation.RequiresTagName
 import com.chandilsachin.diettracker.view_model.FoodDetailsViewModel
 import kotlinx.android.synthetic.main.fragment_food_details.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 
 @RequiresTagName("FoodDetailsFragment")
 class FoodDetailsFragment : BaseFragment() {
-
-    /*private val mRegistry = LifecycleRegistry(this)
-    override fun getLifecycle(): LifecycleRegistry {
-        return mRegistry
-    }*/
 
     val model: FoodDetailsViewModel by lazy {
         initViewModel(FoodDetailsViewModel::class.java)
@@ -42,13 +39,13 @@ class FoodDetailsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         init()
-        getArgumentValues()
-        fetchFoodDetails()
         super.onViewCreated(view, savedInstanceState)
     }
 
 
     private fun init() {
+        getArgumentValues()
+
         setSupportActionBar(my_toolbar)
         setDisplayHomeAsUpEnabled(true)
         activity.setTitle(if (modeReplace) R.string.updateFoodDetails else R.string.foodDetailsPage)
@@ -62,6 +59,17 @@ class FoodDetailsFragment : BaseFragment() {
                 textViewCalories.text = food.calories.toString()
             }
         })
+        if(modeReplace){
+            doAsync {
+                val quantity = model.getFoodQuantityOn(selectedFoodId, Date())
+                uiThread {
+                    editTextNoOfServings.setText(quantity.toString())
+                }
+            }
+
+        }
+
+        fetchFoodDetails()
     }
 
 
@@ -69,12 +77,6 @@ class FoodDetailsFragment : BaseFragment() {
         selectedFoodId = arguments.getLong(FoodListFragment.SELECTED_FOOD_ID, -1)
         modeReplace = arguments.getBoolean(MODE_REPLACE)
     }
-
-
-    /*override fun onCreateOptionsMenu(menu: Menu?, menuInflater: MenuInflater) {
-
-
-    }*/
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         if (modeReplace)
@@ -97,14 +99,14 @@ class FoodDetailsFragment : BaseFragment() {
                     getAppCompactActivity().supportFragmentManager.popBackStack(null,
                             FragmentManager.POP_BACK_STACK_INCLUSIVE);
                     // Switch fragment to FoodDiaryFragment
-                    loadFragment(R.id.frameLayoutFragment, FoodDiaryFragment.getInstance(activity = activity))
+                    loadFragment(R.id.frameLayoutFragment, PersonalizedFoodFragment.getInstance(activity = activity))
                 }
             }
             R.id.updateFood ->{
                 doAsync {
                     model.saveFoodDetails(food)
                     // Switch fragment to FoodDiaryFragment
-                    loadFragment(R.id.frameLayoutFragment, FoodDiaryFragment.getInstance(activity = activity))
+                    loadFragment(R.id.frameLayoutFragment, PersonalizedFoodFragment.getInstance(activity = activity))
                 }
             }
         }

@@ -12,8 +12,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Load FoodDiaryFragment with current date
-        loadFragment(R.id.frameLayoutFragment, FoodDiaryFragment.getInstance(activity = this as FragmentActivity))
+        loadFragment(R.id.frameLayoutFragment,
+                PersonalizedFoodFragment.getInstance(activity = this as FragmentActivity))
     }
 
     override fun onBackPressed() {

@@ -2,6 +2,7 @@ package com.chandilsachin.diettracker
 
 import android.app.Application
 import android.content.res.AssetManager
+import com.chandilsachin.diettracker.database.FoodDatabase
 import com.chandilsachin.diettracker.database.PersonalizedFood
 import com.chandilsachin.diettracker.io.JSONReader
 import com.chandilsachin.diettracker.model.Date
@@ -35,7 +36,7 @@ class DatabaseTest {
 
     @Before
     fun beforeTest() {
-
+        FoodDatabase.TEST_MODE = true
         Mockito.`when`(context?.assets).thenReturn(assetManager)
         Mockito.`when`(assetManager?.open("food_Items.json")).thenReturn(
                 javaClass.classLoader.getResourceAsStream("food_Items.json")

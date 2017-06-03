@@ -1,5 +1,6 @@
 package com.chandilsachin.diettracker.util
 
+import android.R
 import android.arch.lifecycle.LifecycleFragment
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -31,7 +32,8 @@ open class BaseFragment : LifecycleFragment() {
     companion object {
         val TAG_NAME = (BaseFragment::class.annotations.find { it == RequiresTagName::class } as? RequiresTagName)?.tagName
 
-        fun findInstance(activity: FragmentActivity): Fragment? {
+        fun findInstance(activity: FragmentActivity?): Fragment? {
+            if(activity == null) return null
             return activity.supportFragmentManager.findFragmentByTag(TAG_NAME)
         }
     }
