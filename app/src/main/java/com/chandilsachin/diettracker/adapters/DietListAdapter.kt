@@ -1,24 +1,29 @@
 package com.chandilsachin.diettracker.adapters
 
-import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.TextView
 import com.chandilsachin.diettracker.R
 import com.chandilsachin.diettracker.database.DietFood
-import com.chandilsachin.diettracker.database.Food
-import java.util.*
+import ru.rambler.libs.swipe_layout.SwipeLayout
 
 /**
  * Created by Sachin Chandil on 29/04/2017.
  */
 
-class DietListAdapter(context: android.content.Context, var foodList: List<DietFood>) : android.support.v7.widget.RecyclerView.Adapter<DietListAdapter.ViewHolder>() {
+class DietListAdapter(context: android.content.Context) : RecyclerView.Adapter<DietListAdapter.ViewHolder>(){
+
+
+    var foodList: List<DietFood> = emptyList()
+
 
     private val inflater = LayoutInflater.from(context)
-    private var onItemClick: DietListAdapter.Callback<Void, Long>? = null
+    var onItemEditClick: (food: DietFood) -> Unit = {}
+    var onItemDeleteClick: (food: DietFood) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): com.chandilsachin.diettracker.adapters.DietListAdapter.ViewHolder {
         val holder = ViewHolder(inflater.inflate(R.layout.layout_food_list_item, parent, false))
@@ -31,29 +36,33 @@ class DietListAdapter(context: android.content.Context, var foodList: List<DietF
 
     override fun getItemCount() = foodList.size
 
-    fun setOnItemClick(onItemClick: Callback<Void, Long>) {
-        this.onItemClick = onItemClick
-    }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val textViewFoodName = itemView.findViewById(R.id.textViewFoodName) as TextView
         private val textViewFoodDesc = itemView.findViewById(R.id.textViewFoodDesc) as TextView
         private val textViewQuantity = itemView.findViewById(R.id.textViewQuantity) as TextView
+        private val swipeLayoutDietListItem = itemView.findViewById(R.id.swipeLayoutDietListItem) as SwipeLayout
+        private val textViewDietItemDelete = itemView.findViewById(R.id.textViewDietItemDelete) as TextView
+        private val textViewDietItemEdit = itemView.findViewById(R.id.textViewDietItemEdit) as TextView
 
-        fun bindView(food:DietFood){
+        fun bindView(food: DietFood) {
             textViewFoodName.text = food.foodName
             textViewFoodDesc.text = food.foodDesc
             textViewQuantity.text = "x${food.quantity}"
             textViewQuantity.visibility = View.VISIBLE
-            itemView.setOnClickListener {
-                if (onItemClick != null)
-                    onItemClick!!.callback(foodList[position].id)
-            }
-        }
-    }
+            swipeLayoutDietListItem.isRightSwipeEnabled = true
+            swipeLayoutDietListItem.isLeftSwipeEnabled = true
 
-    interface Callback<R, P> {
-        fun callback(param: P): R
+            textViewDietItemEdit.setOnClickListener {
+                onItemEditClick(food)
+                swipeLayoutDietListItem.reset()
+            }
+
+            textViewDietItemDelete.setOnClickListener(View.OnClickListener {
+                onItemDeleteClick(food)
+                swipeLayoutDietListItem.reset()
+            })
+        }
     }
 }

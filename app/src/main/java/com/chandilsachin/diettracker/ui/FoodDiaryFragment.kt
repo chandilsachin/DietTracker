@@ -11,16 +11,15 @@ import android.view.ViewGroup
 import com.chandilsachin.diettracker.R
 import com.chandilsachin.diettracker.adapters.DietListAdapter
 import com.chandilsachin.diettracker.database.DietFood
+import com.chandilsachin.diettracker.database.PersonalizedFood
 import com.chandilsachin.diettracker.model.Date
 import com.chandilsachin.diettracker.other.InitPreferences
-import com.chandilsachin.diettracker.util.BaseFragment
+import com.chandilsachin.diettracker.util.*
 import com.chandilsachin.diettracker.util.annotation.RequiresTagName
-import com.chandilsachin.diettracker.util.initViewModel
-import com.chandilsachin.diettracker.util.loadFragment
-import com.chandilsachin.diettracker.util.setSupportActionBar
 import com.chandilsachin.diettracker.view_model.MainActivityModel
 import kotlinx.android.synthetic.main.fragment_food_diary.*
 import kotlinx.android.synthetic.main.layout_meal_listing.*
+import kotlinx.android.synthetic.main.toolbar_layout.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import kotlin.properties.Delegates
@@ -61,33 +60,53 @@ class FoodDiaryFragment : BaseFragment() {
         doAsync {
             if (!InitPreferences(context).hasDataLoaded()) {
                 model.prepareInitDatabase()
+                InitPreferences(context).setDataHasLoaded(true)
             }
             uiThread {
                 //dialog?.dismiss()
             }
         }
-
     }
 
     private fun prepareDietList() {
-        val adapter = DietListAdapter(context, emptyList())
+        val adapter = DietListAdapter(context)
         recyclerViewDietList.adapter = adapter
         model.personalisedFoodList.observe(this, Observer { list ->
             list?.let {
-                if (list.isNotEmpty()) {
-                    adapter.foodList = list
-                    adapter.notifyDataSetChanged()
-                    setFact(list)
-                }
+                adapter.foodList = list
+                setFact(list)
+                adapter.notifyDataSetChanged()
             }
         })
+
+        fetchFoodList()
+
+        adapter.onItemDeleteClick = { food ->
+            val foodObj = PersonalizedFood()
+            foodObj.foodId = food.id
+            foodObj.date = date
+            doAsync {
+                model.deleteDietFood(foodObj)
+                uiThread {
+                    fetchFoodList()
+                }
+            }
+        }
+
+        adapter.onItemEditClick = { food ->
+            loadFragment(R.id.frameLayoutFragment, FoodDetailsFragment.getInstance(food.id,
+                    true, getAppCompactActivity()))
+        }
+
+    }
+
+    private fun fetchFoodList() {
         doAsync {
             val uiTask = model.fetchFoodListOn(date)
             uiThread {
                 uiTask()
             }
         }
-
     }
 
     private fun setFact(list: List<DietFood>) {
@@ -96,15 +115,15 @@ class FoodDiaryFragment : BaseFragment() {
         var carbs: Double = 0.0
         var fat: Double = 0.0
         for (item in list) {
-            calorie += item.calories
-            protein += item.protein
-            carbs += item.carbs
-            fat += item.fat
+            calorie += item.calories * item.quantity
+            protein += item.protein * item.quantity
+            carbs += item.carbs * item.quantity
+            fat += item.fat * item.quantity
         }
-        textViewTotalCalories.text = calorie.toString() + "g"
-        textViewTotalProtein.text = protein.toString() + "g"
-        textViewTotalCarbs.text = carbs.toString() + "g"
-        textViewTotalFat.text = fat.toString() + "g"
+        textViewTotalCalories.text = calorie.toDecimal(2)
+        textViewTotalProtein.text = protein.toDecimal(2) + "g"
+        textViewTotalCarbs.text = carbs.toDecimal(2) + "g"
+        textViewTotalFat.text = fat.toDecimal(2) + "g"
     }
 
     fun setEvents() {

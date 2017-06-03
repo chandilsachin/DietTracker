@@ -7,6 +7,7 @@ import android.arch.lifecycle.MutableLiveData
 import com.chandilsachin.diettracker.database.DietFood
 import com.chandilsachin.diettracker.database.Food
 import com.chandilsachin.diettracker.database.FoodDatabase
+import com.chandilsachin.diettracker.database.PersonalizedFood
 import com.chandilsachin.diettracker.model.Date
 import com.chandilsachin.diettracker.repository.MainActivityRepository
 import java.util.*
@@ -29,6 +30,10 @@ class MainActivityModel constructor(application: Application) : AndroidViewModel
         return {
             personalisedFoodList.value = list
         }
+    }
+
+    fun deleteDietFood(food:PersonalizedFood){
+        repo.deleteDietFood(food, getApplication())
     }
 
     /**

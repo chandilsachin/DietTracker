@@ -32,4 +32,8 @@ class FoodDetailsViewModel(application: Application):AndroidViewModel(applicatio
     fun saveFoodDetails(food:PersonalizedFood){
         repo.saveFood(getApplication(), food)
     }
+
+    fun updateFoodDetails(food:PersonalizedFood){
+        repo.updateFood(getApplication(), food)
+    }
 }

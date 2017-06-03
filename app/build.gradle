@@ -54,6 +54,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
     compile 'com.android.support:design:25.0.1'
     compile 'com.android.support:appcompat-v7:25.0.1'
@@ -70,12 +71,13 @@ dependencies {
     compile "android.arch.persistence.room:runtime:1.0.0-alpha1"
     kapt "android.arch.persistence.room:compiler:1.0.0-alpha1"
 
-    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    compile 'ru.rambler.android:swipe-layout:1.0.14'
 
     testCompile 'junit:junit:4.12'
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
     testCompile "org.mockito:mockito-core:1.+"
     testCompile 'org.json:json:20140107'
+    compile 'com.android.support:support-v4:25.3.1'
 }
 repositories {
     mavenCentral()

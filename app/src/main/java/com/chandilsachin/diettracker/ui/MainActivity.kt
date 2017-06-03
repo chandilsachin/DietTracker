@@ -15,4 +15,11 @@ class MainActivity : AppCompatActivity() {
         // Load FoodDiaryFragment with current date
         loadFragment(R.id.frameLayoutFragment, FoodDiaryFragment.getInstance(activity = this as FragmentActivity))
     }
+
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount > 1)
+            super.onBackPressed()
+        else
+            finish()
+    }
 }

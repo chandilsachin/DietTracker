@@ -6,6 +6,7 @@ import android.content.Context
 import com.chandilsachin.diettracker.database.DietFood
 import com.chandilsachin.diettracker.database.Food
 import com.chandilsachin.diettracker.database.FoodDatabase
+import com.chandilsachin.diettracker.database.PersonalizedFood
 import com.chandilsachin.diettracker.model.Date
 import com.chandilsachin.diettracker.other.AddFoodPresenter
 import com.chandilsachin.diettracker.other.InitPreferences
@@ -22,10 +23,13 @@ class MainActivityRepository{
 
         val list = AddFoodPresenter().readFoodItemsFile(context)
         FoodDatabase.getInstance(context).addFoodList(list)
-        InitPreferences(context).setDataHasLoaded(true)
     }
 
     fun getTodaysFoodList(context: Context):List<DietFood>{
         return FoodDatabase.getInstance(context).getFood(Date())
+    }
+
+    fun deleteDietFood(food:PersonalizedFood, context: Context){
+        FoodDatabase.getInstance(context).deleteDietFood(food)
     }
 }

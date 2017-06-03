@@ -20,7 +20,7 @@ class AddFoodPresenter {
                 val `object` = jsonArray.getJSONObject(i)
                 val fact = `object`.getJSONObject("facts")
                 val food = com.chandilsachin.diettracker.database.Food(`object`.getString("food_name"), `object`.getString("food_desc"), fact.getDouble("protein"),
-                        fact.getDouble("carbs"), fact.getDouble("fat"), fact.getDouble("calorie"))
+                        fact.getDouble("carbs"), fact.getDouble("fat"), fact.getDouble("calories"))
                 list.add(food)
             }
         } catch (e: org.json.JSONException) {

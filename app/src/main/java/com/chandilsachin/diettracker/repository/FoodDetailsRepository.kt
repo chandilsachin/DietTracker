@@ -16,6 +16,10 @@ class FoodDetailsRepository {
     }
 
     fun saveFood(context: Context, food:PersonalizedFood){
+        FoodDatabase.getInstance(context).saveFood(food)
+    }
+
+    fun updateFood(context: Context, food:PersonalizedFood){
         val tempFood = FoodDatabase.getInstance(context).getFood(food.foodId, Date())
         if(tempFood != null)
             food.quantity += tempFood.quantity

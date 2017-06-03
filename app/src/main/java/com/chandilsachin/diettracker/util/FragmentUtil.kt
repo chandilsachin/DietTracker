@@ -19,7 +19,7 @@ fun Fragment.loadFragment(containerId:Int, fragment: Fragment){
     loadFragment(containerId, fragment, activity as AppCompatActivity)
 }
 
-internal fun loadFragment(containerId:Int, fragment: Fragment, activity: AppCompatActivity){
+fun loadFragment(containerId:Int, fragment: Fragment, activity: AppCompatActivity){
     activity.supportFragmentManager.beginTransaction().replace(containerId, fragment)
             .addToBackStack(null).commit()
 }
@@ -30,5 +30,9 @@ fun Fragment.setSupportActionBar(toolbar: Toolbar){
 
 fun Fragment.setDisplayHomeAsUpEnabled(value:Boolean){
     (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(value)
+}
+
+fun Fragment.getAppCompactActivity():AppCompatActivity{
+    return activity as AppCompatActivity
 }
 

@@ -2,6 +2,7 @@ package com.chandilsachin.diettracker.database
 
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.Dao
+import android.arch.persistence.room.Delete
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy.REPLACE
 import android.arch.persistence.room.Query
@@ -49,16 +50,18 @@ interface FoodDao {
     fun addFoodList(list:List<Food>)
 
 
-
     // Personalized food list operations
 
     @Insert(onConflict = REPLACE)
     fun saveFood(food:PersonalizedFood)
 
+    @Delete
+    fun deleteDietFood(food:PersonalizedFood):Int
+
     @Query("SELECT * FROM $PERSONALISED_FOOD_LIST WHERE $FOOD_ID=:arg0 and $DATE=:arg1")
     fun getFood(foodId:Long, date:Date):PersonalizedFood?
 
     //@Query("SELECT * FROM $ALL_FOOD_LIST where $ID in (select $FOOD_ID from $PERSONALISED_FOOD_LIST where $DATE = :arg0)")
-    @Query("SELECT $NAME,$DESC,$PROTEIN,$CARBS,$FAT,$CALORIES,$PERSONALISED_FOOD_LIST.$QUANTITY FROM $ALL_FOOD_LIST,$PERSONALISED_FOOD_LIST where $ID = $PERSONALISED_FOOD_LIST.$FOOD_ID and $DATE = :arg0")
+    @Query("SELECT $ID,$NAME,$DESC,$PROTEIN,$CARBS,$FAT,$CALORIES,$PERSONALISED_FOOD_LIST.$QUANTITY FROM $ALL_FOOD_LIST,$PERSONALISED_FOOD_LIST where $ID = $PERSONALISED_FOOD_LIST.$FOOD_ID and $DATE = :arg0")
     fun getFood(date:Date):List<DietFood>
 }
