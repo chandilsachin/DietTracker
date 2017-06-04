@@ -11,6 +11,9 @@ App to track daily diet activities
 * Room Persistence
 
 
+### Prerequisites
+* Android Studio 3.0 Canary X
+
 #### Want to contribute?
 Please feel free to contribute. <br>
 Just send pull request with:
